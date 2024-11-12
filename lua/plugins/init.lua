@@ -91,4 +91,8 @@ return {
       })
     end
   },
+  {
+    "pocco81/auto-save.nvim",
+    event = "BufLeave"
+  }
 }
