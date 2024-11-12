@@ -1,5 +1,11 @@
 return {
   {
+    "nvim-tree/nvim-tree.lua",
+    config = function ()
+       require("configs.nvim-tree").setup()
+    end
+  },
+  {
     "stevearc/conform.nvim",
     opts = require "configs.conform",
   },
