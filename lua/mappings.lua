@@ -37,3 +37,4 @@ map("n", "<leader>dgt", function()
   require('dap-go').debug_last()
 end, { desc = "DapGo debug test" })
 
+map('n', '<leader>bc', ':bufdo if &filetype != "iletype" | bdelete | endif<CR>', { noremap = true, silent = true })
