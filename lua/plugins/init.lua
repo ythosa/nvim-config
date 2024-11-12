@@ -1,7 +1,6 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
   },
   {
@@ -14,8 +13,7 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup()
-      -- vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
-      end
+    end
   },
   {
     "mfussenegger/nvim-dap",
@@ -94,5 +92,29 @@ return {
   {
     "pocco81/auto-save.nvim",
     event = "BufLeave"
-  }
+  },
+
+  -- Go language support
+  {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = {"CmdlineEnter"},
+    ft = {"go", 'gomod'},
+    build = ':lua require("go.install").update_all_sync()'
+  },
+  {
+    "dreamsofcode-io/nvim-dap-go",
+    ft = "go",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function(_, opts)
+      require("dap-go").setup(opts)
+    end
+  },
 }
