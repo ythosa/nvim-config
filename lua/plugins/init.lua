@@ -8,6 +8,7 @@ return {
   {
     "stevearc/conform.nvim",
     opts = require "configs.conform",
+    event = 'BufWritePre'
   },
   {
     "lewis6991/gitsigns.nvim",
