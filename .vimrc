@@ -47,7 +47,11 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-
+" Russian keyboard
+set keymap=russian-jcukenmac
+set iminsert=1
+set imsearch=0
+highlight lCursor guifg=NONE guibg=Cyan
 
 
 " Tabs settings for Python
@@ -125,10 +129,4 @@ endif
 set guifont=Monaco:h18
 set termguicolors
 colorscheme embark
-
-" Russian keyboard
-set keymap=russian-jcukenwin
-set iminsert=0
-set imsearch=0
-highlight lCursor guifg=NONE guibg=Cyan
 
