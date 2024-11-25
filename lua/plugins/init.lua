@@ -118,4 +118,8 @@ return {
       require("dap-go").setup(opts)
     end
   },
+  {
+    "terrastruct/d2-vim",
+    ft = "d2"
+  }
 }
