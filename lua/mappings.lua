@@ -2,8 +2,11 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
+-- common
 map("n", ";", ":", { desc = "CMD enter command mode" })
+map('n', '<leader>bc', ':bufdo if &filetype != "iletype" | bdelete | endif<CR>', { noremap = true, silent = true })
 
+-- telescope
 map("n", "<leader>fft", function()
   local api = require('nvim-tree.api')
   local node = api.tree.get_node_under_cursor()
@@ -23,6 +26,7 @@ map("n", "<leader>fwt", function()
   }
 end, { desc = "Telescope search strings in selected tree node" })
 
+-- dap mappings 
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "Dap add breakpoint line" })
 map("n", "<leader>dus", function()
   local widgets = require('dap.ui.widgets');
@@ -30,6 +34,7 @@ map("n", "<leader>dus", function()
   sidebar.open();
 end, { desc = "Dap debugging sidebar" })
 
+-- dap-go mappings 
 map("n", "<leader>dgl", function()
   require('dap-go').debug_last()
 end, { desc = "DapGo debug last test" })
@@ -37,4 +42,3 @@ map("n", "<leader>dgt", function()
   require('dap-go').debug_last()
 end, { desc = "DapGo debug test" })
 
-map('n', '<leader>bc', ':bufdo if &filetype != "iletype" | bdelete | endif<CR>', { noremap = true, silent = true })
