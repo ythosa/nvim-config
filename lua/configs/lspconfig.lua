@@ -11,7 +11,7 @@ local ooo = function(client, bufnr)
 end
 
 -- lsps with default config
-local servers = { "html", "cssls", "buf_ls", "yamlls" }
+local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = ooo,

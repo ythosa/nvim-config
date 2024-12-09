@@ -92,7 +92,14 @@ return {
   },
   {
     "pocco81/auto-save.nvim",
-    event = "BufLeave"
+    lazy = false,
+    config = function()
+      require("auto-save").setup({
+        config = {
+          trigger_events = {"BufLeave"}
+        }
+      })
+    end
   },
 
   -- Go language support
