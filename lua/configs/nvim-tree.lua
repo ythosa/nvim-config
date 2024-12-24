@@ -10,7 +10,10 @@ function M.setup()
       update_cwd = true,
       update_root = false,
       ignore_list = {},
-    }
+    },
+    filters = {
+      enable = false,
+    },
   })
 end
 
