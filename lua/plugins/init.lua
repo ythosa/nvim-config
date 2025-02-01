@@ -174,7 +174,27 @@ return {
     },
     init = function()
       vim.g.coq_settings = {
-          auto_start = true, 
+        auto_start = true,
+        keymap = {
+          jump_to_mark = "<C-]>",
+          bigger_preview = "<C-l>",
+        },
+        -- clients = {
+          -- lsp = {
+          --   resolve_timeout = 0.5,
+          -- },
+        -- },
+        display = {
+          pum = {
+            fast_close = true,
+          },
+          preview = {
+            positions = {
+              east = 3,
+              south = 4,
+            },
+          },
+        },
       }
     end,
     config = function()

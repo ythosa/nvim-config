@@ -14,15 +14,19 @@ local on_attach = function(_, bufnr)
   map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
   map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
 
-  map("n", "<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, opts "List workspace folders")
+  -- map("n", "<leader>wl", function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, opts "List workspace folders")
 
   map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
   map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
 
   map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
+
+  vim.keymap.set("n", "gd", "<cmd> Telescope lsp_definitions <cr>", { buffer = bufnr })
+  vim.keymap.set("n", "gr", "<cmd> Telescope lsp_references <cr>", { buffer = bufnr })
+  vim.keymap.set("n", "gi", "<cmd> Telescope lsp_implementations <cr>", { buffer = bufnr })
 end
 
 -- disable semanticTokens
@@ -81,37 +85,42 @@ local defaults = function()
   }
 end
 
-defaults() -- loads nvchad's defaults
-
-local ooo = function(client, bufnr)
-  on_attach(client, bufnr)
-  vim.keymap.set("n", "gd", "<cmd> Telescope lsp_definitions <cr>", { buffer = bufnr })
-  vim.keymap.set("n", "gr", "<cmd> Telescope lsp_references <cr>", { buffer = bufnr })
-  vim.keymap.set("n", "gi", "<cmd> Telescope lsp_implementations <cr>", { buffer = bufnr })
-end
+defaults() -- loads defaults
 
 -- lsps with default config
-local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls"}
+local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    on_attach = ooo,
+    on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
   }
 end
 
 lspconfig["gopls"].setup {
-  on_attach = ooo,
-  on_init = on_init,
-  capabilities = capabilities,
+  on_attach = on_attach,
+  capabilities = require("coq").lsp_ensure_capabilities({}),
   settings = {
     gopls = {
       completeUnimported = true,
       usePlaceholders = true,
       analyses = {
         unusedparams = true,
+        shadow = true,
+        nilness = true,
+        unusedwrite = true,
+      },
+      staticcheck = true,
+      gofumpt = false,
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
       },
     },
-  }
+  },
 }
 
