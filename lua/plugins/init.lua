@@ -42,6 +42,36 @@ return {
       dofile(vim.g.base46_cache .. "blankline")
     end,
   },
+  {
+    "karb94/neoscroll.nvim",
+    lazy = false,
+    config = function ()
+      require('neoscroll').setup({
+        mappings = {
+          '<C-u>', '<C-d>',
+          '<C-b>', '<C-f>',
+          '<C-y>', '<C-e>',
+          'zt', 'zz', 'zb',
+        },
+        hide_cursor = true,
+        stop_eof = true,
+        respect_scrolloff = false,
+        cursor_scrolls_alone = true,
+        easing = 'quadratic',
+        pre_hook = nil,
+        post_hook = nil,
+        performance_mode = false,
+      })
+    end
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    lazy = false,
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
 
   -- file management 
   {
@@ -60,7 +90,41 @@ return {
       return {}
     end,
   },
-
+  {
+    "pocco81/auto-save.nvim",
+    lazy = false,
+    config = function()
+      require("auto-save").setup({
+        config = {
+          trigger_events = {"BufLeave"}
+        }
+      })
+    end
+  },
+    {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = "Telescope",
+    opts = function()
+      return require "configs.telescope"
+    end,
+  },
+  {
+    "princejoogie/dir-telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    event = "BufRead",
+    config = function ()
+        require("dir-telescope").setup({
+            hidden = true,
+            no_ignore = true,
+            show_preview = true,
+        })
+        vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<leader>pd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
+    end,
+  },
 
   -- formatting!
   {
@@ -89,19 +153,16 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       -- coq for autocompletion
-      -- main one
-      { "ms-jpq/coq_nvim", branch = "coq" },
-      -- 9000+ Snippets
-      { "ms-jpq/coq.artifacts", branch = "artifacts" },
-      -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-      -- Need to **configure separately**
-      { 'ms-jpq/coq.thirdparty', branch = "3p" },
+      { "ms-jpq/coq_nvim", branch = "coq" }, -- main one 
+      { "ms-jpq/coq.artifacts", branch = "artifacts" }, -- for snippets 
+      { 'ms-jpq/coq.thirdparty', branch = "3p" }, -- third party sources -- See https://github.com/ms-jpq/coq.thirdparty
       -- - shell repl
       -- - nvim lua api
       -- - scientific calculator
       -- - comment banner
       -- - etc
 
+      -- list of available classes and methods
       {
         "SmiteshP/nvim-navbuddy",
         dependencies = {
@@ -113,8 +174,7 @@ return {
     },
     init = function()
       vim.g.coq_settings = {
-          auto_start = true, -- if you want to start COQ at startup
-          -- Your COQ settings here
+          auto_start = true, 
       }
     end,
     config = function()
@@ -124,9 +184,9 @@ return {
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
-    config = true
-    -- use opts = {} for passing setup options
-    -- this is equivalent to setup({}) function
+    config = true,
+    enabled = false,
+    -- use opts = {} for passing setup options, this is equivalent to setup({}) function
   },
   {
     "RRethy/vim-illuminate",
@@ -160,71 +220,6 @@ return {
       require("configs.treesitter-context").setup()
     end
   },
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    cmd = "Telescope",
-    opts = function()
-      return require "configs.telescope"
-    end,
-  },
-  {
-    "princejoogie/dir-telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    event = "BufRead",
-    config = function ()
-        require("dir-telescope").setup({
-            hidden = true,
-            no_ignore = true,
-            show_preview = true,
-        })
-        vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
-        vim.keymap.set("n", "<leader>pd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
-    end,
-  },
-  {
-    "karb94/neoscroll.nvim",
-    lazy = false,
-    config = function ()
-      require('neoscroll').setup({
-        mappings = {
-          '<C-u>', '<C-d>',
-          '<C-b>', '<C-f>',
-          '<C-y>', '<C-e>',
-          'zt', 'zz', 'zb',
-        },
-        hide_cursor = true,
-        stop_eof = true,
-        respect_scrolloff = false,
-        cursor_scrolls_alone = true,
-        easing = 'quadratic',
-        pre_hook = nil,
-        post_hook = nil,
-        performance_mode = false,
-      })
-    end
-  },
-  {
-    "pocco81/auto-save.nvim",
-    lazy = false,
-    config = function()
-      require("auto-save").setup({
-        config = {
-          trigger_events = {"BufLeave"}
-        }
-      })
-    end
-  },
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    lazy = false,
-    config = function()
-      require("todo-comments").setup()
-    end,
-  },
 
   -- Go language support
   {
@@ -249,6 +244,8 @@ return {
       require("dap-go").setup(opts)
     end
   },
+
+  -- D2 support
   {
     "terrastruct/d2-vim",
     ft = "d2"
