@@ -1,5 +1,5 @@
 return {
-  -- all the lua functions I don't want to write twice.
+  -- all the lua functions i don't want to write twice
   "nvim-lua/plenary.nvim",
 
   -- ui
