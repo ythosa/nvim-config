@@ -2,7 +2,6 @@ local opt = vim.opt
 local o = vim.o
 local g = vim.g
 
--------------------------------------- options ------------------------------------------
 o.laststatus = 3
 o.showmode = false
 
@@ -10,7 +9,7 @@ o.clipboard = "unnamedplus"
 o.cursorline = true
 o.cursorlineopt = "both"
 
--- Indenting
+-- indenting
 o.expandtab = true
 o.shiftwidth = 2
 o.smartindent = true
@@ -22,7 +21,7 @@ o.ignorecase = true
 o.smartcase = true
 o.mouse = "a"
 
--- Numbers
+-- numbers
 o.number = true
 o.numberwidth = 2
 o.ruler = false
