@@ -1,27 +1,89 @@
 return {
+  -- all the lua functions I don't want to write twice.
+  "nvim-lua/plenary.nvim",
+
+  -- ui
   {
-    "hrsh7th/nvim-cmp",
-    enabled = false,
+    "nvchad/base46",
+    build = function()
+      require("base46").load_all_highlights()
+    end,
   },
+  {
+    "nvchad/ui",
+    lazy = false,
+    config = function()
+      require "nvchad"
+    end,
+  },
+  "nvzone/volt",
+  "nvzone/menu",
+  { "nvzone/minty", cmd = { "Huefy", "Shades" } },
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = function()
+      dofile(vim.g.base46_cache .. "devicons")
+      return { override = require "nvchad.icons.devicons" }
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "User FilePost",
+    opts = {
+      indent = { char = "│", highlight = "IblChar" },
+      scope = { char = "│", highlight = "IblScopeChar" },
+    },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "blankline")
+
+      local hooks = require "ibl.hooks"
+      hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+      require("ibl").setup(opts)
+      dofile(vim.g.base46_cache .. "blankline")
+    end,
+  },
+
+  -- file management 
   {
     "nvim-tree/nvim-tree.lua",
-    config = function ()
-       require("configs.nvim-tree").setup()
-    end
+    lazy = false,
+    opts = function()
+      return require "configs.nvim-tree"
+    end,
   },
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    cmd = "WhichKey",
+    opts = function()
+      dofile(vim.g.base46_cache .. "whichkey")
+      return {}
+    end,
+  },
+
+
+  -- formatting!
   {
     "stevearc/conform.nvim",
     opts = require "configs.conform",
-    event = 'BufWritePre'
   },
+
+  -- git tools
   {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-    end
+    event = "User FilePost",
+    opts = function()
+      return require "configs.gitsigns"
+    end,
   },
+
+  -- lsp
   {
-    "mfussenegger/nvim-dap",
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
+    opts = function()
+      return require "configs.mason"
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -60,10 +122,32 @@ return {
     end,
   },
   {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+  },
+  {
     "RRethy/vim-illuminate",
     lazy = false,
     config = function ()
       require("configs.illuminate").setup()
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
+    opts = function()
+      return require "configs.treesitter"
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   {
@@ -75,6 +159,14 @@ return {
     config = function ()
       require("configs.treesitter-context").setup()
     end
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = "Telescope",
+    opts = function()
+      return require "configs.telescope"
+    end,
   },
   {
     "princejoogie/dir-telescope.nvim",
