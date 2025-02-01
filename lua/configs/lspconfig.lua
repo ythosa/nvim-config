@@ -1,4 +1,5 @@
 local lspconfig = require "lspconfig"
+local coq = require "coq"
 
 local map = vim.keymap.set
 
@@ -97,9 +98,8 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-lspconfig["gopls"].setup {
+lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  capabilities = require("coq").lsp_ensure_capabilities({}),
   settings = {
     gopls = {
       completeUnimported = true,
@@ -122,5 +122,5 @@ lspconfig["gopls"].setup {
       },
     },
   },
-}
+}))
 
