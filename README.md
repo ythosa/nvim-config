@@ -37,7 +37,7 @@ Config uses [lazy.nvim](https://github.com/folke/lazy.nvim.git) as plugin manage
 - Uses [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim) for easy install and managing LSP servers, DAP servers, linters and formatters.
 - Fast as FUCK code-completion [ms-jpq/coq_nvim](https://github.com/ms-jpq/coq_nvim).
 - Highlighting syntax using [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
-- Debugger with [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap).
+- Debugger with [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap) and [rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
 - Showing code context such as signature of the function being edited with [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 - Showing file content as breadcrumbs using [SmiteshP/nvim-navbuddy](https://github.com/SmiteshP/nvim-navbuddy).
 - Automatic bracket pairs with [windwp/nvim-autopairs](https://github.com/windwp/nvim-autopairs).

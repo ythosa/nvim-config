@@ -124,11 +124,13 @@ end, { desc = "whichkey query lookup" })
 
 -- dap mappings 
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "Dap add breakpoint line" })
-map("n", "<leader>dus", function()
-  local widgets = require('dap.ui.widgets');
-  local sidebar = widgets.sidebar(widgets.scopes);
-  sidebar.open();
-end, { desc = "Dap debugging sidebar" })
+map("n", "<leader>dc", "<cmd> DapContinue <CR>", { desc = "Dap continue" })
+map("n", "<leader>dsi", "<cmd> DapStepInto <CR>", { desc = "Dap step into" })
+map("n", "<leader>dso", "<cmd> DapStepOver <CR>", { desc = "Dap step over" })
+map("n", "<leader>dst", "<cmd> DapStepOut <CR>", { desc = "Dap step out" })
+map("n", "<leader>dut", function()
+  require("dapui").toggle()
+end, { desc = "Dap toggle UI" })
 
 -- dap-go mappings 
 map("n", "<leader>dgl", function()
