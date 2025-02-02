@@ -101,7 +101,7 @@ return {
       })
     end
   },
-    {
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     cmd = "Telescope",
@@ -299,7 +299,7 @@ return {
     build = ':lua require("go.install").update_all_sync()'
   },
   {
-    "dreamsofcode-io/nvim-dap-go",
+    "leoluz/nvim-dap-go",
     ft = "go",
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)
