@@ -49,7 +49,7 @@ filetype plugin indent on    " required
 
 " Russian keyboard
 set keymap=russian-jcukenmac
-set iminsert=1
+set iminsert=0
 set imsearch=0
 highlight lCursor guifg=NONE guibg=Cyan
 
@@ -67,12 +67,12 @@ let go_highlight_all = 1
 " terminals such as gnome-terminal
 set t_Co=256
 
-" Перед сохранением вырезаем пробелы на концах (только в .py файлах)
+" Before saving we cut the spaces at the ends (only for .py files)
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
-" В .py файлах включаем умные отступы после ключевых слов
+" Turning on smart margins after keywords (only for .py files)
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
-syntax on "Включить подсветку синтаксиса
+syntax on "Turning on syntax highlighting
 
 set nu "Turning on line numbers
 set mousehide "Hide mice coursour while typing a text
@@ -80,10 +80,8 @@ set mouse=a "Turning on mouse support
 set termencoding=utf-8 "Terminal encoding
 set novisualbell "Don't blink 
 set t_vb= "Don't beep! (Unfortunately, there is no 'do not spoil the text' option)
-" Comfortable behaviour for backspace
-set backspace=indent,eol,start whichwrap+=<,>,[,]
-" Turning off dashes on tabs
-set showtabline=1
+set backspace=indent,eol,start whichwrap+=<,>,[,] "Comfortable behaviour for backspace
+set showtabline=1 "Turning off dashes on tabs
 
 " Transfer to the another line and break the lines
 set wrap
