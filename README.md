@@ -4,6 +4,9 @@ The repository is a ready-made configuration for Neovim,
 where the main focus is on the Go programming language. 
 Also contains minimalistic Vim config.
 
+## Example
+https://github.com/user-attachments/assets/acfff7cb-8546-46b9-84de-8dd70902570a
+
 ## Installation
 - Cloning repository
     ```sh
