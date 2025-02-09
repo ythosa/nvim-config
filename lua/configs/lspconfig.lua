@@ -89,7 +89,7 @@ end
 defaults() -- loads defaults
 
 -- lsps with default config
-local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls" }
+local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls", "pyright" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
