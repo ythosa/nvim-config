@@ -260,6 +260,9 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
+    init = function() 
+      require("configs.dap")()
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
