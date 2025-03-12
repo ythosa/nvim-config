@@ -45,3 +45,11 @@ vim.api.nvim_set_keymap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { 
 vim.api.nvim_set_keymap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<BS>"]], { expr = true, silent = true })
 
 vim.lsp.inlay_hint.enable(true) -- enabling inlay hints for lsp's
+
+-- code folding: zR (open all), zM (close all), za (toggle under cursor), zk & zj (nav between folds)
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 5
+vim.opt.foldnestmax = 6
+
