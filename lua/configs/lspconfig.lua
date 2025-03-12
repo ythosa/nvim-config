@@ -3,7 +3,7 @@ local coq = require "coq"
 
 local map = vim.keymap.set
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local function opts(desc)
     return { buffer = bufnr, desc = "LSP " .. desc }
   end
@@ -28,6 +28,16 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "gd", "<cmd> Telescope lsp_definitions <cr>", { buffer = bufnr })
   vim.keymap.set("n", "gr", "<cmd> Telescope lsp_references <cr>", { buffer = bufnr })
   vim.keymap.set("n", "gi", "<cmd> Telescope lsp_implementations <cr>", { buffer = bufnr })
+
+  if client.name == 'gopls' then
+    client.server_capabilities.semanticTokensProvider = {
+      full = true,
+      legend = {
+        tokenTypes = { 'namespace', 'type', 'class', 'enum', 'interface', 'struct', 'typeParameter', 'parameter', 'variable', 'property', 'enumMember', 'event', 'function', 'method', 'macro', 'keyword', 'modifier', 'comment', 'string', 'number', 'regexp', 'operator', 'decorator' },
+        tokenModifiers = { 'declaration', 'definition', 'readonly', 'static', 'deprecated', 'abstract', 'async', 'modification', 'documentation', 'defaultLibrary'}
+      }
+    }
+  end
 end
 
 -- disable semanticTokens
@@ -63,7 +73,7 @@ local defaults = function()
   require("lspconfig").lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    on_init = on_init,
+    -- on_init = on_init,
 
     settings = {
       Lua = {
@@ -91,17 +101,18 @@ defaults() -- loads defaults
 -- lsps with default config
 local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls", "pyright" }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  lspconfig[lsp].setup(coq.lsp_ensure_capabilities({
     on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-  }
+    -- on_init = on_init,
+    -- capabilities = capabilities,
+  }))
 end
 
 lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
   settings = {
     gopls = {
+      semanticTokens = true,
       completeUnimported = true,
       usePlaceholders = true,
       analyses = {

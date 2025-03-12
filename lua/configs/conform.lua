@@ -3,11 +3,12 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
-    go = { "goimports-reviser", "gofumpt" }
+    go = { "goimports-reviser", "gofumpt" },
+    sql = { "sqlfmt" },
   },
 
   format_on_save = {
-    timeout_ms = 500,
+    timeout_ms = 1000,
     lsp_fallback = true,
   },
 }

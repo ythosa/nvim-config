@@ -27,6 +27,43 @@ return {
     end,
   },
   {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    lazy = false,
+    config = function()
+      require('toggleterm').setup({
+        size = 20,
+        open_mapping = [[<c-\>]],
+        shade_terminals = true,
+        direction = "float",
+        float_opts = {
+          border = "rounded", -- Стиль границы (как в Telescope)
+          winblend = 10, -- Прозрачность
+          width = function() return math.floor(vim.o.columns * 0.7) end,
+          height = function() return math.floor(vim.o.lines * 0.6) end,
+        },
+        highlights = {
+          FloatBorder = {
+            guifg = "#89B4FA", -- Цвет границы (как в вашей теме)
+          }
+        }
+      })
+
+      require('toggleterm.terminal').Terminal:new({
+        on_open = function(term)
+          vim.cmd('startinsert!')
+          vim.api.nvim_buf_set_name(term.bufnr, "Terminal #"..term.id)
+          vim.opt_local.statuscolumn = ""
+        end,
+        -- Иконка в виде  
+        float_opts = {
+          title = "  Terminal ",
+          title_pos = "center"
+        }
+      })
+    end,
+  },
+  {
     "lukas-reineke/indent-blankline.nvim",
     event = "User FilePost",
     opts = {
@@ -92,7 +129,7 @@ return {
   },
   {
     "pocco81/auto-save.nvim",
-    enabled = false,
+    enabled = true,
     lazy = false,
     config = function()
       require("auto-save").setup({
@@ -177,14 +214,15 @@ return {
       vim.g.coq_settings = {
         auto_start = true,
         keymap = {
+          recommended = false,
           jump_to_mark = "<C-]>",
           bigger_preview = "<C-l>",
         },
-        -- clients = {
-          -- lsp = {
-          --   resolve_timeout = 0.5,
-          -- },
-        -- },
+        clients = {
+          lsp = {
+            resolve_timeout = 0.5,
+          },
+        },
         display = {
           pum = {
             fast_close = true,
@@ -202,7 +240,7 @@ return {
       require "configs.lspconfig"
     end,
   },
-  { 
+  {
     "hrsh7th/nvim-cmp", -- `coq_nvim` alternative
     enabled = false,
     event = "InsertEnter",
@@ -245,6 +283,12 @@ return {
     opts = function()
       return require "configs.nvim-cmp"
     end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
+    config = require "configs.nvim-lint",
   },
   {
     'windwp/nvim-autopairs',
