@@ -5,7 +5,7 @@ return function()
     -- javascript = { "eslint_d" },
     -- typescript = { "eslint_d" },
     vue = { "eslint_d" },
-    go = { "golangcilint" },
+    -- go = { "golangcilint" },
     python = { "ruff" },
   }
 

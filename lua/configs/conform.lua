@@ -3,8 +3,11 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
+    ts = { "prettier" },
+    js = { "prettier" },
     go = { "goimports-reviser", "gofumpt" },
     sql = { "sqlfmt" },
+    cpp = { "clang-format" },
   },
 
   format_on_save = {
