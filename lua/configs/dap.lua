@@ -97,14 +97,4 @@ return function()
     dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
     end
-
-    dap.configurations.go = {
-        {
-            type = "delve",
-            name = "file",
-            request = "launch",
-            program = "${file}",
-            outputMode = "remote",
-        },
-    }
 end
