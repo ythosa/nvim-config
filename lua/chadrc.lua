@@ -2,7 +2,9 @@
 local M = {}
 
 M.base46 = {
-	theme = "material-darker",
+	-- theme = "material-darker",
+  theme = "tokyonight",
+  -- theme = "yoru",
 
 	hl_override = {
 		Comment = { italic = true },
