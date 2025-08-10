@@ -21,6 +21,20 @@ o.ignorecase = true
 o.smartcase = true
 o.mouse = "a"
 
+-- Always show the signcolumn, otherwise it would shift the text each time
+-- diagnostics appeared/became resolved
+vim.opt.signcolumn = "yes"
+vim.diagnostic.config {
+    virtual_text = false, -- отключаем встроенный virtual_text
+    float = {
+        wrap = true, -- включаем перенос в float-окнах
+        max_width = 80, -- ограничиваем ширину
+        format = function(diagnostic)
+            return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code or "")
+        end,
+    },
+}
+
 -- numbers
 o.number = true
 o.numberwidth = 2
@@ -53,4 +67,3 @@ local is_windows = vim.fn.has "win32" ~= 0
 local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
-

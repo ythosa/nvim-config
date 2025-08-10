@@ -14,7 +14,7 @@ table.insert(vimgrep_arguments, "--hidden")
 table.insert(vimgrep_arguments, "--glob")
 table.insert(vimgrep_arguments, "!**/.git/*")
 
-return {
+local config = {
     defaults = {
         vimgrep_arguments = vimgrep_arguments,
         file_ignore_patterns = {},
@@ -40,4 +40,13 @@ return {
     },
     extensions_list = { "themes", "terms" },
     extensions = {},
+}
+
+return {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = "Telescope",
+    opts = function()
+        return config
+    end,
 }

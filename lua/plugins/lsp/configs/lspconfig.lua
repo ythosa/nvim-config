@@ -20,7 +20,7 @@ local on_attach = function(client, bufnr)
     -- end, opts "List workspace folders")
 
     map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
-    map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
+    vim.keymap.set("n", "<Leader>ra", "<cmd>lua vim.lsp.buf.rename()<cr>", { buffer = bufnr })
 
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
     map("n", "gr", vim.lsp.buf.references, opts "Show references")
@@ -28,6 +28,14 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "gd", "<cmd> Telescope lsp_definitions <cr>", { buffer = bufnr })
     vim.keymap.set("n", "gr", "<cmd> Telescope lsp_references <cr>", { buffer = bufnr })
     vim.keymap.set("n", "gi", "<cmd> Telescope lsp_implementations <cr>", { buffer = bufnr })
+
+    -- vim virtual text diagnostics toggle
+    vim.keymap.set("n", "<leader>tdd", function()
+        vim.diagnostic.config {
+            virtual_lines = not vim.diagnostic.config().virtual_lines,
+            virtual_text = not vim.diagnostic.config().virtual_text,
+        }
+    end, { desc = "toggle diagnostic" })
 
     -- if client.name == 'gopls' then
     --   client.server_capabilities.semanticTokensProvider = {
@@ -68,7 +76,7 @@ capabilities.textDocument.completion.completionItem = {
 
 local defaults = function()
     dofile(vim.g.base46_cache .. "lsp")
-    require("nvchad.lsp").diagnostic_config()
+    -- require("nvchad.lsp").diagnostic_config()
 
     require("lspconfig").lua_ls.setup {
         on_attach = on_attach,

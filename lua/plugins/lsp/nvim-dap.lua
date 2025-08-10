@@ -1,4 +1,4 @@
-return function()
+local function config()
     require("dap.ext.vscode").load_launchjs(nil, { go = { "go" } })
 
     local dap, dapui = require "dap", require "dapui"
@@ -98,3 +98,13 @@ return function()
         dapui.close()
     end
 end
+
+return {
+    "mfussenegger/nvim-dap",
+    depedencies = {
+        "theHamsta/nvim-dap-virtual-text",
+    },
+    init = function()
+        config()
+    end,
+}

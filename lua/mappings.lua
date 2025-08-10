@@ -31,20 +31,23 @@ end, { desc = "general format file" })
 
 -- global lsp mappings
 map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
+map("n", "<leader>se", function()
+    vim.diagnostic.open_float()
+end, { desc = "show error diagnostic" })
 
--- tabufline
+-- bufferline
 -- map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 map("n", "<tab>", function()
-    require("nvchad.tabufline").next()
+    require("bufferline").cycle(1)
 end, { desc = "buffer goto next" })
 map("n", "<S-tab>", function()
-    require("nvchad.tabufline").prev()
+    require("bufferline").cycle(-1)
 end, { desc = "buffer goto prev" })
 map("n", "<leader>x", function()
-    require("nvchad.tabufline").close_buffer()
+    require("bufferline").close_buffer()
 end, { desc = "buffer close" })
 map("n", "<leader>bc", function()
-    require("nvchad.tabufline").closeAllBufs()
+    require("bufferline").close_all_buffers()
 end, { desc = "buffers close" })
 
 -- comment
@@ -64,10 +67,9 @@ map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find o
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
 map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
 map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
-map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
-map("n", "<leader>th", function()
-    require("nvchad.themes").open()
-end, { desc = "telescope nvchad themes" })
+map("n", "<leader>fe", "<cmd>Telescope diagnostics<CR>", { desc = "telescope diagnostics" })
+
+-- map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
 map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", { desc = "telescope find files" })
 map(
     "n",
@@ -98,23 +100,8 @@ end, { desc = "Telescope search strings in selected tree node" })
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- new terminals
-map("n", "<leader>h", function()
-    require("nvchad.term").new { pos = "sp" }
-end, { desc = "terminal new horizontal term" })
-map("n", "<leader>v", function()
-    require("nvchad.term").new { pos = "vsp" }
-end, { desc = "terminal new vertical term" })
-
--- toggleable
-map({ "n", "t" }, "<A-v>", function()
-    require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
-map({ "n", "t" }, "<A-h>", function()
-    require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "terminal toggleable horizontal term" })
-map({ "n", "t" }, "<A-i>", function()
-    require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "terminal toggle floating term" })
+map("n", "<leader>h", ":split<CR>", { desc = "terminal new horizontal term" })
+map("n", "<leader>v", ":vs<CR>", { desc = "terminal new vertical term" })
 
 -- whichkey
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
