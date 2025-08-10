@@ -99,7 +99,8 @@ end
 defaults() -- loads defaults
 
 -- lsps with default config
-local servers = { "html", "cssls", "buf_ls", "yamlls", "ts_ls", "pyright", "clangd", "tailwindcss" }
+local servers =
+    { "html", "cssls", "buf_ls", "yamlls", "ts_ls", "pyright", "clangd", "tailwindcss", "nginx_language_server" }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup(coq.lsp_ensure_capabilities {
         on_attach = on_attach,
