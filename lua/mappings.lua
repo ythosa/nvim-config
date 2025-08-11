@@ -43,7 +43,7 @@ end, { desc = "buffer goto next" })
 map("n", "<S-tab>", function()
     require("bufferline").cycle(-1)
 end, { desc = "buffer goto prev" })
-map("n", "<leader>x", ":bd<CR>", { desc = "buffer close" })
+map("n", "<leader>x", ":bp|bd#<CR>", { desc = "buffer close" })
 map("n", "<leader>bc", "<cmd>BufferLineCloseOthers<CR>", { desc = "buffers close" })
 
 -- comment
