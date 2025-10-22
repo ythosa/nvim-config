@@ -1,4 +1,4 @@
-dofile(vim.g.base46_cache .. "mason")
+
 
 local config = {
     PATH = "skip",
