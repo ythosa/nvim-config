@@ -8,11 +8,18 @@ local options = {
         go = { "goimports-reviser", "gofumpt" },
         sql = { "sqlfmt" },
         cpp = { "clang-format" },
+        python = { "black" },
     },
 
     format_on_save = {
-        timeout_ms = 1000,
+        timeout_ms = 5000,
         lsp_fallback = true,
+    },
+
+    formatters = {
+        black = {
+            prepend_args = { "--fast" },
+        },
     },
 }
 
