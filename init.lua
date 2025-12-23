@@ -31,7 +31,7 @@ vim.opt.shiftwidth = 4
 -- vim.opt.expandtab = true
 
 -- code folding: zR (open all), zM (close all), za (toggle under cursor), zk & zj (nav between folds)
-vim.opt.foldmethod = "expr"
+vim.opt.foldmethod = "indent"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 10
