@@ -1,5 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     dependencies = {
         -- coq for autocompletion
         { "ms-jpq/coq_nvim", branch = "coq" }, -- main one
