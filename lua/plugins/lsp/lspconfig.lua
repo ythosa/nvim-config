@@ -35,7 +35,7 @@ return {
             },
             clients = {
                 lsp = {
-                    resolve_timeout = 0.5,
+                    resolve_timeout = 1,
                 },
             },
             display = {
