@@ -4,7 +4,7 @@ pcall(function()
 end)
 
 local config = {
-    ensure_installed = { "lua", "luadoc", "printf", "vim", "vimdoc" },
+    ensure_installed = { "lua", "luadoc", "printf", "vim", "vimdoc", "go" },
 
     highlight = {
         enable = true,
