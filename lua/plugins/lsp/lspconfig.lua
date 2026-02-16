@@ -24,6 +24,9 @@ return {
     },
     init = function()
         vim.g.coq_settings = {
+            completion = {
+                skip_after = { " ", "\t", "{", "}", "[", "]" },
+            },
             auto_start = true,
             keymap = {
                 recommended = false,
