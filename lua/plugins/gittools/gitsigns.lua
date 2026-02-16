@@ -1,4 +1,4 @@
-dofile(vim.g.base46_cache .. "git")
+
 
 local config = {
     signs = {

@@ -1,4 +1,3 @@
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 
 -- bootstrap lazy and all plugins
@@ -18,10 +17,6 @@ require("lazy").setup({
     { import = "plugins" },
 }, lazy_config)
 
--- load theme
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-
 require "options"
 require "autocmds"
 
@@ -36,7 +31,7 @@ vim.opt.shiftwidth = 4
 -- vim.opt.expandtab = true
 
 -- code folding: zR (open all), zM (close all), za (toggle under cursor), zk & zj (nav between folds)
-vim.opt.foldmethod = "expr"
+vim.opt.foldmethod = "indent"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 10

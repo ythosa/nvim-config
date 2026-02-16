@@ -1,7 +1,7 @@
-dofile(vim.g.base46_cache .. "telescope")
+
 pcall(function()
-    dofile(vim.g.base46_cache .. "syntax")
-    dofile(vim.g.base46_cache .. "treesitter")
+    
+    
 end)
 
 -- Clone the default Telescope configuration

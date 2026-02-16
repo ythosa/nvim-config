@@ -1,4 +1,4 @@
-dofile(vim.g.base46_cache .. "nvimtree")
+
 
 local config = {
     filters = {

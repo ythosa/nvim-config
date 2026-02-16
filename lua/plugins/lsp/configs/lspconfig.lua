@@ -75,9 +75,6 @@ capabilities.textDocument.completion.completionItem = {
 }
 
 local defaults = function()
-    dofile(vim.g.base46_cache .. "lsp")
-    -- require("nvchad.lsp").diagnostic_config()
-
     require("lspconfig").lua_ls.setup {
         on_attach = on_attach,
         capabilities = capabilities,

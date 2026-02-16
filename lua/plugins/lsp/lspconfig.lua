@@ -1,5 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     dependencies = {
         -- coq for autocompletion
         { "ms-jpq/coq_nvim", branch = "coq" }, -- main one
@@ -23,6 +24,9 @@ return {
     },
     init = function()
         vim.g.coq_settings = {
+            completion = {
+                skip_after = { " ", "\t", "{", "}", "[", "]" },
+            },
             auto_start = true,
             keymap = {
                 recommended = false,
@@ -31,7 +35,7 @@ return {
             },
             clients = {
                 lsp = {
-                    resolve_timeout = 0.5,
+                    resolve_timeout = 1,
                 },
             },
             display = {
