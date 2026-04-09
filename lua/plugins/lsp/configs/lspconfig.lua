@@ -1,4 +1,3 @@
-local lspconfig = require "lspconfig"
 local coq = require "coq"
 
 local map = vim.keymap.set
@@ -48,12 +47,6 @@ local on_attach = function(client, bufnr)
     -- end
 end
 
--- disable semanticTokens
-local on_init = function(client, _)
-    if client.supports_method "textDocument/semanticTokens" then
-        client.server_capabilities.semanticTokensProvider = nil
-    end
-end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem = {
@@ -74,47 +67,36 @@ capabilities.textDocument.completion.completionItem = {
     },
 }
 
-local defaults = function()
-    require("lspconfig").lua_ls.setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        -- on_init = on_init,
+-- Wrap capabilities with COQ
+local coq_capabilities = coq.lsp_ensure_capabilities(capabilities)
 
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim" },
+-- lua_ls configuration with vim.lsp.config
+vim.lsp.config("lua_ls", {
+    on_attach = on_attach,
+    capabilities = coq_capabilities,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim" },
+            },
+            workspace = {
+                library = {
+                    vim.fn.expand "$VIMRUNTIME/lua",
+                    vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
+                    vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+                    "${3rd}/luv/library",
                 },
-                workspace = {
-                    library = {
-                        vim.fn.expand "$VIMRUNTIME/lua",
-                        vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
-                        vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
-                        "${3rd}/luv/library",
-                    },
-                    maxPreload = 100000,
-                    preloadFileSize = 10000,
-                },
+                maxPreload = 100000,
+                preloadFileSize = 10000,
             },
         },
-    }
-end
+    },
+})
 
-defaults() -- loads defaults
-
--- lsps with default config
-local servers =
-    { "html", "cssls", "buf_ls", "yamlls", "ts_ls", "pyright", "clangd", "tailwindcss", "nginx_language_server" }
-for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup(coq.lsp_ensure_capabilities {
-        on_attach = on_attach,
-        -- on_init = on_init,
-        -- capabilities = capabilities,
-    })
-end
-
-lspconfig.gopls.setup(coq.lsp_ensure_capabilities {
+-- gopls configuration
+vim.lsp.config("gopls", {
     on_attach = on_attach,
+    capabilities = coq_capabilities,
     settings = {
         gopls = {
             semanticTokens = true,
@@ -139,3 +121,44 @@ lspconfig.gopls.setup(coq.lsp_ensure_capabilities {
         },
     },
 })
+
+-- kotlin_lsp configuration (with explicit cmd for brew path)
+vim.lsp.config("kotlin_lsp", {
+    on_attach = on_attach,
+    capabilities = coq_capabilities,
+    cmd = { "kotlin-lsp", "--stdio" },
+})
+
+-- servers with default config
+local servers = { "html", "cssls", "yamlls", "ts_ls", "pyright", "clangd", "tailwindcss" }
+
+for _, server in ipairs(servers) do
+    vim.lsp.config(server, {
+        on_attach = on_attach,
+        capabilities = coq_capabilities,
+    })
+end
+
+-- Servers requiring explicit cmd
+vim.lsp.config("buf_ls", {
+    on_attach = on_attach,
+    capabilities = coq_capabilities,
+    cmd = { "buf", "lint", "breaking", "--path" },
+})
+
+vim.lsp.config("jdtls", {
+    on_attach = on_attach,
+    capabilities = coq_capabilities,
+    cmd = { "jdtls" },
+})
+
+vim.lsp.config("nginx_language_server", {
+    on_attach = on_attach,
+    capabilities = coq_capabilities,
+    cmd = { "nginx-language-server" },
+})
+
+-- Enable all configured LSP servers
+vim.lsp.enable("gopls")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("kotlin_lsp")
