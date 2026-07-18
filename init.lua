@@ -27,7 +27,7 @@ end)
 -- style
 vim.opt.colorcolumn = "120"
 vim.opt.tabstop = 2
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 -- vim.opt.expandtab = true
 
 -- code folding: zR (open all), zM (close all), za (toggle under cursor), zk & zj (nav between folds)
