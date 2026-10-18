@@ -1,6 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         -- coq for autocompletion
         { "ms-jpq/coq_nvim", branch = "coq" }, -- main one
@@ -34,7 +34,7 @@ return {
             clients = {
                 buffers = { same_filetype = true },
                 lsp = {
-                    always_on_top = { "gopls", "lua_ls" },
+                    always_on_top = { "gopls", "lua_ls", "clangd" },
                     resolve_timeout = 1,
                 },
                 registers = { enabled = false },

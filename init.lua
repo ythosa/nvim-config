@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 
+require "options"
+
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
@@ -17,7 +19,6 @@ require("lazy").setup({
     { import = "plugins" },
 }, lazy_config)
 
-require "options"
 require "autocmds"
 
 vim.schedule(function()

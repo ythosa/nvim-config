@@ -2,31 +2,25 @@ require "coq"
 
 local map = vim.keymap.set
 
-local on_attach = function(client, bufnr)
+local on_attach = function(args)
+    local bufnr = args.buf
+
     local function opts(desc)
         return { buffer = bufnr, desc = "LSP " .. desc }
     end
 
     map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
-    map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-    map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
     map("n", "<leader>sh", vim.lsp.buf.signature_help, opts "Show signature help")
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
     map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
-
-    -- map("n", "<leader>wl", function()
-    --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, opts "List workspace folders")
 
     map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
     vim.keymap.set("n", "<Leader>ra", "<cmd>lua vim.lsp.buf.rename()<cr>", { buffer = bufnr })
 
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
-    map("n", "gr", vim.lsp.buf.references, opts "Show references")
-
-    vim.keymap.set("n", "gd", "<cmd> Telescope lsp_definitions <cr>", { buffer = bufnr })
-    vim.keymap.set("n", "gr", "<cmd> Telescope lsp_references <cr>", { buffer = bufnr })
-    vim.keymap.set("n", "gi", "<cmd> Telescope lsp_implementations <cr>", { buffer = bufnr })
+    map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts "Go to definition")
+    map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts "Show references")
+    map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts "Go to implementation")
 
     -- vim virtual text diagnostics toggle
     vim.keymap.set("n", "<leader>tdd", function()
@@ -35,42 +29,19 @@ local on_attach = function(client, bufnr)
             virtual_text = not vim.diagnostic.config().virtual_text,
         }
     end, { desc = "toggle diagnostic" })
-
-    -- if client.name == 'gopls' then
-    --   client.server_capabilities.semanticTokensProvider = {
-    --     full = true,
-    --     legend = {
-    --       tokenTypes = { 'namespace', 'type', 'class', 'enum', 'interface', 'struct', 'typeParameter', 'parameter', 'variable', 'property', 'enumMember', 'event', 'function', 'method', 'macro', 'keyword', 'modifier', 'comment', 'string', 'number', 'regexp', 'operator', 'decorator' },
-    --       tokenModifiers = { 'declaration', 'definition', 'readonly', 'static', 'deprecated', 'abstract', 'async', 'modification', 'documentation', 'defaultLibrary'}
-    --     }
-    --   }
-    -- end
 end
 
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("user_lsp_mappings", { clear = true }),
+    callback = on_attach,
+})
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem = {
-    documentationFormat = { "markdown", "plaintext" },
-    snippetSupport = true,
-    preselectSupport = true,
-    insertReplaceSupport = true,
-    labelDetailsSupport = true,
-    deprecatedSupport = true,
-    commitCharactersSupport = true,
-    tagSupport = { valueSet = { 1 } },
-    resolveSupport = {
-        properties = {
-            "documentation",
-            "detail",
-            "additionalTextEdits",
-        },
-    },
-}
+vim.lsp.config("*", {
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+})
 
 -- lua_ls configuration with vim.lsp.config
 vim.lsp.config("lua_ls", {
-    on_attach = on_attach,
-    capabilities = capabilities,
     settings = {
         Lua = {
             diagnostics = {
@@ -92,8 +63,6 @@ vim.lsp.config("lua_ls", {
 
 -- gopls configuration
 vim.lsp.config("gopls", {
-    on_attach = on_attach,
-    capabilities = capabilities,
     settings = {
         gopls = {
             matcher = "CaseInsensitive",
@@ -122,43 +91,35 @@ vim.lsp.config("gopls", {
 
 -- kotlin_lsp configuration (with explicit cmd for brew path)
 vim.lsp.config("kotlin_lsp", {
-    on_attach = on_attach,
-    capabilities = capabilities,
     cmd = { "kotlin-lsp", "--stdio" },
 })
 
--- servers with default config
-local servers = { "html", "cssls", "yamlls", "ts_ls", "pyright", "clangd", "tailwindcss" }
-
-for _, server in ipairs(servers) do
-    vim.lsp.config(server, {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    })
-end
-
--- Servers requiring explicit cmd
-vim.lsp.config("buf_ls", {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { "buf", "lint", "breaking", "--path" },
+vim.lsp.config("clangd", {
+    cmd = { "clangd", "--log=error" },
+    before_init = function(params)
+        -- clangd negotiates position encodings through the standard LSP capability.
+        params.capabilities.offsetEncoding = nil
+    end,
 })
 
-vim.lsp.config("jdtls", {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { "jdtls" },
-})
+local servers = {
+    gopls = "gopls",
+    lua_ls = "lua-language-server",
+    kotlin_lsp = "kotlin-lsp",
+    html = "vscode-html-language-server",
+    cssls = "vscode-css-language-server",
+    yamlls = "yaml-language-server",
+    ts_ls = "typescript-language-server",
+    pyright = "pyright-langserver",
+    clangd = "clangd",
+    tailwindcss = "tailwindcss-language-server",
+    buf_ls = "buf",
+    jdtls = "jdtls",
+    nginx_language_server = "nginx-language-server",
+}
 
-vim.lsp.config("nginx_language_server", {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { "nginx-language-server" },
-})
-
--- Enable all configured LSP servers
-vim.lsp.enable("gopls")
-vim.lsp.enable("lua_ls")
-if vim.fn.executable("kotlin-lsp") == 1 then
-    vim.lsp.enable("kotlin_lsp")
+for server, command in pairs(servers) do
+    if vim.fn.executable(command) == 1 then
+        vim.lsp.enable(server)
+    end
 end

@@ -62,8 +62,22 @@ g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
--- add binaries installed by mason.nvim to path
+-- Make language servers and Go tools available before plugins initialize.
 local is_windows = vim.fn.has "win32" ~= 0
-local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
-vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
+local paths = { vim.fs.joinpath(vim.fn.stdpath "data", "mason", "bin") }
+
+if vim.env.GOBIN and vim.env.GOBIN ~= "" then
+    table.insert(paths, vim.env.GOBIN)
+else
+    local gopath = vim.env.GOPATH
+    if not gopath or gopath == "" then
+        gopath = vim.fs.joinpath(vim.uv.os_homedir(), "go")
+    end
+
+    for _, path in ipairs(vim.split(gopath, delim, { trimempty = true })) do
+        table.insert(paths, vim.fs.joinpath(path, "bin"))
+    end
+end
+
+vim.env.PATH = table.concat(paths, delim) .. delim .. vim.env.PATH
