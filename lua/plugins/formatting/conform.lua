@@ -3,8 +3,10 @@ local options = {
         lua = { "stylua" },
         css = { "prettier" },
         html = { "prettier" },
-        ts = { "prettier" },
-        js = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
         go = { "goimports-reviser", "gofumpt" },
         sql = { "sqlfmt" },
         cpp = { "clang-format" },
@@ -17,6 +19,10 @@ local options = {
     },
 
     formatters = {
+        ["clang-format"] = vim.fn.has("mac") == 1 and {
+            command = "xcrun",
+            prepend_args = { "clang-format" },
+        } or nil,
         black = {
             prepend_args = { "--fast" },
         },
@@ -25,5 +31,7 @@ local options = {
 
 return {
     "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
     opts = options,
 }

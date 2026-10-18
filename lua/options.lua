@@ -25,10 +25,10 @@ o.mouse = "a"
 -- diagnostics appeared/became resolved
 vim.opt.signcolumn = "yes"
 vim.diagnostic.config {
-    virtual_text = false, -- отключаем встроенный virtual_text
+    virtual_text = false, -- Hide inline diagnostics
     float = {
-        wrap = true, -- включаем перенос в float-окнах
-        max_width = 80, -- ограничиваем ширину
+        wrap = true, -- Wrap text in floating windows
+        max_width = 80, -- Limit the window width
         format = function(diagnostic)
             return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code or "")
         end,

@@ -6,6 +6,7 @@ local config = {
         dotfiles = false,
     },
     disable_netrw = true,
+    hijack_netrw = false,
     hijack_cursor = true,
     sync_root_with_cwd = true,
     update_focused_file = {

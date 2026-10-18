@@ -161,4 +161,6 @@ vim.lsp.config("nginx_language_server", {
 -- Enable all configured LSP servers
 vim.lsp.enable("gopls")
 vim.lsp.enable("lua_ls")
-vim.lsp.enable("kotlin_lsp")
+if vim.fn.executable("kotlin-lsp") == 1 then
+    vim.lsp.enable("kotlin_lsp")
+end

@@ -9,8 +9,8 @@ return {
             shade_terminals = true,
             direction = "float",
             float_opts = {
-                border = "rounded", -- Стиль границы (как в Telescope)
-                winblend = 10, -- Прозрачность
+                border = "rounded", -- Match Telescope borders
+                winblend = 10, -- Window transparency
                 width = function()
                     return math.min(800, math.floor(vim.o.columns * 0.7))
                 end,
@@ -20,7 +20,7 @@ return {
             },
             highlights = {
                 FloatBorder = {
-                    guifg = "#89B4FA", -- Цвет границы (как в вашей теме)
+                    guifg = "#89B4FA", -- Match the theme's border color
                 },
             },
         }
@@ -31,7 +31,7 @@ return {
                 vim.api.nvim_buf_set_name(term.bufnr, "Terminal #" .. term.id)
                 vim.opt_local.statuscolumn = ""
             end,
-            -- Иконка в виде 
+            -- Terminal icon in the window title
             float_opts = {
                 title = "  Terminal ",
                 title_pos = "center",

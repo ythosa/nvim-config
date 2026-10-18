@@ -11,5 +11,5 @@ return {
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
-    build = ':lua require("go.install").update_all_sync()',
+    build = ':lua require("go.install").install_all_sync()',
 }

@@ -1,5 +1,6 @@
 local config = {
     ensure_installed = { "lua", "luadoc", "printf", "vim", "vimdoc", "go", "python" },
+    sync_install = true,
 
     highlight = {
         enable = true,
@@ -11,6 +12,7 @@ local config = {
 
 return {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master", -- The main branch uses a different configuration API.
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
