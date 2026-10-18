@@ -112,15 +112,16 @@ map("n", "<leader>dsi", "<cmd> DapStepInto <CR>", { desc = "Dap step into" })
 map("n", "<leader>dso", "<cmd> DapStepOver <CR>", { desc = "Dap step over" })
 map("n", "<leader>dst", "<cmd> DapStepOut <CR>", { desc = "Dap step out" })
 map("n", "<leader>dut", function()
+    require "dap"
     require("dapui").toggle()
 end, { desc = "Dap toggle UI" })
 
 -- dap-go mappings
 map("n", "<leader>dgl", function()
-    require("dap-go").debug_last()
+    require("dap-go").debug_last_test()
 end, { desc = "DapGo debug last test" })
 map("n", "<leader>dgt", function()
-    require("dap-go").debug_last()
+    require("dap-go").debug_test()
 end, { desc = "DapGo debug test" })
 
 vim.api.nvim_set_keymap("i", "<Esc>", [[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]], { expr = true, silent = true })

@@ -6,10 +6,6 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "theHamsta/nvim-dap-virtual-text",
     },
-    config = function()
-        require("go").setup()
-    end,
-    event = { "CmdlineEnter" },
-    ft = { "go", "gomod" },
-    build = ':lua require("go.install").install_all_sync()',
+    opts = {},
+    ft = { "go", "gomod", "gowork", "gotmpl" },
 }

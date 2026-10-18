@@ -99,10 +99,10 @@ end
 
 return {
     "mfussenegger/nvim-dap",
-    depedencies = {
+    cmd = { "DapContinue", "DapToggleBreakpoint", "DapStepInto", "DapStepOver", "DapStepOut", "DapTerminate" },
+    dependencies = {
+        "rcarriga/nvim-dap-ui",
         "theHamsta/nvim-dap-virtual-text",
     },
-    init = function()
-        config()
-    end,
+    config = config,
 }
