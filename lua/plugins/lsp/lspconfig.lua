@@ -27,10 +27,8 @@ return {
             completion = {
                 skip_after = { " ", "\t", "{", "}", "[", "]" },
             },
-            auto_start = true,
             keymap = {
                 recommended = false,
-                jump_to_mark = "<C-]>",
                 bigger_preview = "<C-l>",
             },
             clients = {
@@ -39,9 +37,6 @@ return {
                 },
             },
             display = {
-                pum = {
-                    fast_close = true,
-                },
                 preview = {
                     positions = {
                         east = 3,

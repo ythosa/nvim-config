@@ -135,4 +135,8 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true, silent = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<BS>"]], { expr = true, silent = true })
 
+map({ "i", "s" }, "<C-]>", function()
+    vim.snippet.jump(1)
+end, { desc = "jump to next snippet field" })
+
 vim.lsp.inlay_hint.enable(true) -- enabling inlay hints for lsp's

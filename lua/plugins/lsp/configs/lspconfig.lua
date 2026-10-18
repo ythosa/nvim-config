@@ -1,4 +1,4 @@
-local coq = require "coq"
+require "coq"
 
 local map = vim.keymap.set
 
@@ -67,13 +67,10 @@ capabilities.textDocument.completion.completionItem = {
     },
 }
 
--- Wrap capabilities with COQ
-local coq_capabilities = coq.lsp_ensure_capabilities(capabilities)
-
 -- lua_ls configuration with vim.lsp.config
 vim.lsp.config("lua_ls", {
     on_attach = on_attach,
-    capabilities = coq_capabilities,
+    capabilities = capabilities,
     settings = {
         Lua = {
             diagnostics = {
@@ -96,7 +93,7 @@ vim.lsp.config("lua_ls", {
 -- gopls configuration
 vim.lsp.config("gopls", {
     on_attach = on_attach,
-    capabilities = coq_capabilities,
+    capabilities = capabilities,
     settings = {
         gopls = {
             semanticTokens = true,
@@ -125,7 +122,7 @@ vim.lsp.config("gopls", {
 -- kotlin_lsp configuration (with explicit cmd for brew path)
 vim.lsp.config("kotlin_lsp", {
     on_attach = on_attach,
-    capabilities = coq_capabilities,
+    capabilities = capabilities,
     cmd = { "kotlin-lsp", "--stdio" },
 })
 
@@ -135,26 +132,26 @@ local servers = { "html", "cssls", "yamlls", "ts_ls", "pyright", "clangd", "tail
 for _, server in ipairs(servers) do
     vim.lsp.config(server, {
         on_attach = on_attach,
-        capabilities = coq_capabilities,
+        capabilities = capabilities,
     })
 end
 
 -- Servers requiring explicit cmd
 vim.lsp.config("buf_ls", {
     on_attach = on_attach,
-    capabilities = coq_capabilities,
+    capabilities = capabilities,
     cmd = { "buf", "lint", "breaking", "--path" },
 })
 
 vim.lsp.config("jdtls", {
     on_attach = on_attach,
-    capabilities = coq_capabilities,
+    capabilities = capabilities,
     cmd = { "jdtls" },
 })
 
 vim.lsp.config("nginx_language_server", {
     on_attach = on_attach,
-    capabilities = coq_capabilities,
+    capabilities = capabilities,
     cmd = { "nginx-language-server" },
 })
 
