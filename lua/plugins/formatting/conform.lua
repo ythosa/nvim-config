@@ -15,11 +15,11 @@ local options = {
 
     format_on_save = {
         timeout_ms = 5000,
-        lsp_fallback = true,
+        lsp_format = "fallback",
     },
 
     formatters = {
-        ["clang-format"] = vim.fn.has("mac") == 1 and {
+        ["clang-format"] = vim.fn.has "mac" == 1 and {
             command = "xcrun",
             prepend_args = { "clang-format" },
         } or nil,
