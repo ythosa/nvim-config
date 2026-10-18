@@ -1,10 +1,9 @@
 local config = {
     ensure_installed = { "lua", "luadoc", "printf", "vim", "vimdoc", "go", "python" },
-    sync_install = true,
+    sync_install = false,
 
     highlight = {
         enable = true,
-        use_languagetree = true,
     },
 
     indent = { enable = true },

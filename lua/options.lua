@@ -15,6 +15,13 @@ o.shiftwidth = 2
 o.smartindent = true
 o.tabstop = 2
 o.softtabstop = 2
+o.colorcolumn = "120"
+
+-- zR opens all folds, zM closes them, and za toggles the fold under the cursor.
+o.foldmethod = "indent"
+o.foldlevel = 99
+o.foldlevelstart = 10
+o.foldnestmax = 10
 
 opt.fillchars = { eob = " " }
 o.ignorecase = true
@@ -43,7 +50,6 @@ o.ruler = false
 -- disable nvim intro
 opt.shortmess:append "sI"
 
-o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
 o.timeoutlen = 400
