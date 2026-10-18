@@ -1,6 +1,4 @@
 local function config()
-    require("dap.ext.vscode").load_launchjs(nil, { go = { "go" } })
-
     local dap, dapui = require "dap", require "dapui"
 
     dapui.setup {
