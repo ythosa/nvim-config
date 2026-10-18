@@ -37,7 +37,7 @@ labels. COQ's inline ghost text remains enabled.
 | --- | --- |
 | `Tab` / `Shift-Tab` | Select the next / previous completion |
 | `Enter` | Accept the selected completion; insert a newline when none is selected |
-| `Ctrl-y` | Accept the selected completion without a newline |
+| `Ctrl-y` | Accept the selected completion, or the first suggestion if none is selected |
 | `Ctrl-Space` | Trigger completion manually |
 | `Ctrl-]` | Jump to the next snippet field |
 | `Esc` | Dismiss completion and leave Insert mode |

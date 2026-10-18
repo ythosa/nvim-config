@@ -129,6 +129,14 @@ vim.api.nvim_set_keymap("i", "<C-c>", [[pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]
 vim.api.nvim_set_keymap("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true, silent = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<BS>"]], { expr = true, silent = true })
 
+map("i", "<C-y>", function()
+    if vim.fn.pumvisible() == 1 and vim.fn.complete_info({ "selected" }).selected == -1 then
+        return "<C-n><C-y>"
+    end
+
+    return "<C-y>"
+end, { expr = true, desc = "accept selected or first completion" })
+
 map({ "i", "s" }, "<C-]>", function()
     vim.snippet.jump(1)
 end, { desc = "jump to next snippet field" })

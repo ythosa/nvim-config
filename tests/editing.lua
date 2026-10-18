@@ -3,6 +3,26 @@ vim.opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 local passed = 0
 local scenarios = {
     {
+        name = "first completion acceptance without selection",
+        before = "tes",
+        input = "A",
+        popup = true,
+        action = "<C-y>",
+        check = function(lines)
+            return #lines == 1 and lines[1] == "testing"
+        end,
+    },
+    {
+        name = "selected completion acceptance with Ctrl-y",
+        before = "tes",
+        input = "A",
+        popup = true,
+        action = "<Tab><Tab><C-y>",
+        check = function(lines)
+            return #lines == 1 and lines[1] == "tester"
+        end,
+    },
+    {
         name = "selected completion acceptance",
         before = "tes",
         input = "A",
