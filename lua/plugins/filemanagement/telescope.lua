@@ -17,6 +17,7 @@ table.insert(vimgrep_arguments, "!**/.git/*")
 local config = {
     defaults = {
         vimgrep_arguments = vimgrep_arguments,
+        preview = { hide_on_startup = true },
         file_ignore_patterns = {},
         hidden = true,
         prompt_prefix = "   ",

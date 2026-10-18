@@ -8,7 +8,7 @@ return {
         require("dir-telescope").setup {
             hidden = true,
             no_ignore = true,
-            show_preview = true,
+            show_preview = false,
         }
         vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
         vim.keymap.set("n", "<leader>pd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })

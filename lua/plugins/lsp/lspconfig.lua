@@ -38,6 +38,7 @@ return {
             },
             display = {
                 preview = {
+                    enabled = false,
                     positions = {
                         east = 3,
                         south = 4,
