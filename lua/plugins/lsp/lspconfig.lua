@@ -5,13 +5,6 @@ return {
         -- coq for autocompletion
         { "ms-jpq/coq_nvim", branch = "coq" }, -- main one
         { "ms-jpq/coq.artifacts", branch = "artifacts" }, -- for snippets
-        { "ms-jpq/coq.thirdparty", branch = "3p" }, -- third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-        -- - shell repl
-        -- - nvim lua api
-        -- - scientific calculator
-        -- - comment banner
-        -- - etc
-
         -- list of available classes and methods
         {
             "SmiteshP/nvim-navbuddy",
