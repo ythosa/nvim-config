@@ -96,6 +96,7 @@ vim.lsp.config("gopls", {
     capabilities = capabilities,
     settings = {
         gopls = {
+            matcher = "CaseInsensitive",
             semanticTokens = true,
             completeUnimported = true,
             usePlaceholders = true,

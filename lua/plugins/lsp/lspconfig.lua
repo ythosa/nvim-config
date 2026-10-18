@@ -29,20 +29,23 @@ return {
             },
             keymap = {
                 recommended = false,
-                bigger_preview = "<C-l>",
+                bigger_preview = false,
             },
             clients = {
+                buffers = { same_filetype = true },
                 lsp = {
+                    always_on_top = { "gopls", "lua_ls" },
                     resolve_timeout = 1,
                 },
+                registers = { enabled = false },
+                tags = { enabled = false },
+                third_party = { enabled = false },
+                tmux = { enabled = false },
+                tree_sitter = { enabled = false },
             },
             display = {
                 preview = {
                     enabled = false,
-                    positions = {
-                        east = 3,
-                        south = 4,
-                    },
                 },
             },
         }
