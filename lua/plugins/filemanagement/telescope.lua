@@ -16,7 +16,6 @@ return {
         return {
             defaults = {
                 vimgrep_arguments = vimgrep_arguments,
-                preview = { hide_on_startup = true },
                 file_ignore_patterns = {},
                 prompt_prefix = "   ",
                 selection_caret = " ",
@@ -39,9 +38,6 @@ return {
                     hidden = true,
                     find_command = { "rg", "--files", "--color", "never", "--glob", "!**/.git/*" },
                 },
-                lsp_references = { preview = { hide_on_startup = false } },
-                lsp_definitions = { preview = { hide_on_startup = false } },
-                lsp_implementations = { preview = { hide_on_startup = false } },
             },
         }
     end,

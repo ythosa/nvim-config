@@ -29,10 +29,9 @@ registers, tags and third-party completion sources are disabled.
 Go completion uses case-insensitive prefix matching. This avoids distant fuzzy
 matches, at the cost of no longer matching arbitrary letters inside a name.
 
-Completion documentation and file/text search previews are hidden by default.
-LSP references, definitions and implementations show a code preview. Precognition
-motion hints are hidden; `Space p` toggles them, without the noisy `f`/`t` labels.
-COQ's inline ghost text remains enabled.
+File/text search and LSP navigation show previews by default. Completion
+documentation and Precognition motion hints are hidden; `Space p` toggles motion
+hints without the noisy `f`/`t` labels. COQ's inline ghost text remains enabled.
 
 | Key | Action |
 | --- | --- |
